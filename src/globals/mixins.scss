@@ -1,0 +1,12 @@
+@mixin remove-default-spacing {
+  padding: 0px;
+  margin: 0px;
+}
+
+@mixin default-flex-style {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
