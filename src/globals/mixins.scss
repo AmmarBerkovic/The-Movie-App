@@ -5,8 +5,28 @@
 
 @mixin default-flex-style {
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+}
+
+@mixin lower($point) {
+  @if $point == xs {
+    @media (max-width: 0px) {
+      @content;
+    }
+  } @else if $point == sm {
+    @media (max-width: 576px) {
+      @content;
+    }
+  } @else if $point == md {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $point == lg {
+    @media (max-width: 992px) {
+      @content;
+    }
+  }
 }
