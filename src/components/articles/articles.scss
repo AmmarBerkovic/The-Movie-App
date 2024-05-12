@@ -1,2 +1,6 @@
 @import "./../../globals/mixins.scss";
 @import "./../../globals/variables.scss";
+
+.articles-wrapper {
+  @include default-flex-style;
+}
