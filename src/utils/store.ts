@@ -19,18 +19,15 @@ export const setArticleType = (type: string) => ({
 const searchTextReducer = (state = "", action: any) => {
   switch (action.type) {
     case SET_SEARCH_TEXT:
-      console.log("Search Triggered");
-
       return action.payload;
     default:
       return state;
   }
 };
 
-const articleTypeReducer = (state = "", action: any) => {
+const articleTypeReducer = (state = "movies", action: any) => {
   switch (action.type) {
     case SET_ARTICLE_TYPE:
-      console.log("Type triggered");
       return action.payload;
     default:
       return state;

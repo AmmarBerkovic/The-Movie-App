@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 interface ArticleInt {
   id: number;
   title: string;
+  name: string;
 }
 
 const Articles: React.FC = () => {
@@ -16,11 +17,19 @@ const Articles: React.FC = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      console.log("ARTLIST:20:");
-
       try {
-        let url = "";
-        if (articleType === "movies") {
+        let url = "",
+          entityTypeUrl = articleType === "movies" ? "movie" : "tv";
+        let params: any = {
+          language: "en-US",
+          page: "1",
+          api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd", // Replace with your API key
+        };
+
+        if (searchText) {
+          url = `https://api.themoviedb.org/3/search/${entityTypeUrl}`;
+          params.query = searchText;
+        } else if (articleType === "movies") {
           url = "https://api.themoviedb.org/3/movie/top_rated";
         } else if (articleType === "tvShows") {
           url = "https://api.themoviedb.org/3/tv/top_rated";
@@ -29,24 +38,25 @@ const Articles: React.FC = () => {
         const options = {
           method: "GET",
           url,
-          params: {
-            language: "en-US",
-            page: "1",
-            api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd", // Replace with your API key
-          },
+          params,
           headers: {
             accept: "application/json",
           },
         };
-
-        const response = await axios.request(options);
-
-        setArticles(response.data.results);
+        
+        const response = await axios.request(options).then((response) => {
+          if (response.data.results) setArticles(response.data.results);
+          console.log(response, options, articleType);
+          
+        }).catch(err => {
+          console.log("Errror: ", err);
+          
+        });
       } catch (error) {
         console.error(error);
       }
     };
-
+    
     fetchArticles();
   }, [articleType, searchText]);
 
@@ -66,8 +76,7 @@ const Articles: React.FC = () => {
 
     axios
       .request(options)
-      .then(function (response) {
-        console.log(response.data);
+      .then((response) => {
         setArticles(response.data.results);
       })
       .catch(function (error) {
@@ -78,7 +87,7 @@ const Articles: React.FC = () => {
   return (
     <div className="articles-wrapper">
       {articles.map((article) => (
-        <Article key={article.id} title={article.title} />
+        <Article key={article.id} title={article.title ?? article.name} />
       ))}
     </div>
   );

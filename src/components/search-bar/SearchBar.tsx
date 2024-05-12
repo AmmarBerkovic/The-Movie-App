@@ -1,4 +1,3 @@
-// SearchBar.tsx
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchText } from "../../utils/store";
@@ -13,6 +12,8 @@ const SearchBar: React.FC = () => {
     setSearchTextLocal(newText);
     if (newText.length > 2) {
       dispatch(setSearchText(newText)); // Dispatch action to update search text in Redux store
+    } else {
+      dispatch(setSearchText(''))
     }
   };
 
