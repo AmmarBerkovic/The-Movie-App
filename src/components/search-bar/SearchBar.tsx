@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import "./search-bar.scss";
+// SearchBar.tsx
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchText } from "../../utils/store";
+import './search-bar.scss';
 
 const SearchBar: React.FC = () => {
-  const [searchText, setSearchText] = useState("");
-
-  useEffect(() => {
-    console.log("Search text changed:", searchText);
-  }, [searchText]);
+  const [searchText, setSearchTextLocal] = useState("");
+  const dispatch = useDispatch();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-    if(searchText.length > 2) {
-      
-      
+    const newText = event.target.value;
+    setSearchTextLocal(newText);
+    if (newText.length > 2) {
+      dispatch(setSearchText(newText)); // Dispatch action to update search text in Redux store
     }
   };
 
