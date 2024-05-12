@@ -14,8 +14,8 @@ const Navigation: React.FC = () => {
   return (
     <nav>
       <ul>
-        <li onClick={() => handleNavClick("movies")}>Movies</li>
         <li onClick={() => handleNavClick("tvShows")}>TV Shows</li>
+        <li onClick={() => handleNavClick("movies")}>Movies</li>
       </ul>
     </nav>
   );

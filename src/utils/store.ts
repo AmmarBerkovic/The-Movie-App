@@ -25,7 +25,7 @@ const searchTextReducer = (state = "", action: any) => {
   }
 };
 
-const articleTypeReducer = (state = "movies", action: any) => {
+const articleTypeReducer = (state = "tvShows", action: any) => {
   switch (action.type) {
     case SET_ARTICLE_TYPE:
       return action.payload;

@@ -17,72 +17,44 @@ const Articles: React.FC = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      try {
-        let url = "",
-          entityTypeUrl = articleType === "movies" ? "movie" : "tv";
-        let params: any = {
-          language: "en-US",
-          page: "1",
-          api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd", // Replace with your API key
-        };
-
-        if (searchText) {
-          url = `https://api.themoviedb.org/3/search/${entityTypeUrl}`;
-          params.query = searchText;
-        } else if (articleType === "movies") {
-          url = "https://api.themoviedb.org/3/movie/top_rated";
-        } else if (articleType === "tvShows") {
-          url = "https://api.themoviedb.org/3/tv/top_rated";
-        }
-
-        const options = {
-          method: "GET",
-          url,
-          params,
-          headers: {
-            accept: "application/json",
-          },
-        };
-        
-        const response = await axios.request(options).then((response) => {
-          if (response.data.results) setArticles(response.data.results);
-          console.log(response, options, articleType);
-          
-        }).catch(err => {
-          console.log("Errror: ", err);
-          
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    
-    fetchArticles();
-  }, [articleType, searchText]);
-
-  useEffect(() => {
-    const options = {
-      method: "GET",
-      url: "https://api.themoviedb.org/3/movie/top_rated",
-      params: {
+      let url = "",
+        entityTypeUrl = articleType === "movies" ? "movie" : "tv";
+      let params: any = {
         language: "en-US",
         page: "1",
-        api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd",
-      },
-      headers: {
-        accept: "application/json",
-      },
+        api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd", // Replace with your API key
+      };
+
+      if (searchText) {
+        url = `https://api.themoviedb.org/3/search/${entityTypeUrl}`;
+        params.query = searchText;
+      } else if (articleType === "movies") {
+        url = "https://api.themoviedb.org/3/movie/top_rated";
+      } else if (articleType === "tvShows") {
+        url = "https://api.themoviedb.org/3/tv/top_rated";
+      }
+
+      const options = {
+        method: "GET",
+        url,
+        params,
+        headers: {
+          accept: "application/json",
+        },
+      };
+
+      const response = await axios
+        .request(options)
+        .then((response) => {
+          setArticles(response.data.results);
+        })
+        .catch((err) => {
+          console.log("Response: ", err);
+        });
     };
 
-    axios
-      .request(options)
-      .then((response) => {
-        setArticles(response.data.results);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }, []);
+    fetchArticles();
+  }, [articleType, searchText]);
 
   return (
     <div className="articles-wrapper">

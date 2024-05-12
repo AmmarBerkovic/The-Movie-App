@@ -4,9 +4,22 @@ nav {
   ul {
     @include default-flex-style;
     li {
-      cursor: pointer;
+      padding: 5px;
       font-size: 28px;
       font-weight: 700;
+      position: relative;
+      outline: none;
+      background-color: transparent;
+      color: white;
+      transition: 0.4s;
+      border-radius: 0.3em;
+      cursor: pointer;
+    }
+    li.active {
+      box-shadow: inset 0px 0px 25px #e62977;
+    }
+    li:hover {
+      transform: scale(1.05);
     }
   }
 }
