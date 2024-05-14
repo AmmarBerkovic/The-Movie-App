@@ -10,6 +10,7 @@ const SingleArticlePage: React.FC = () => {
   const [article, setArticle] = useState<any>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -36,8 +37,6 @@ const SingleArticlePage: React.FC = () => {
       const response = await axios
         .request(options)
         .then((response) => {
-          console.log(response);
-
           setArticle(response.data);
         })
         .catch((err) => {
@@ -55,7 +54,7 @@ const SingleArticlePage: React.FC = () => {
       <img className="back-arrow" src={backArrow} alt="" onClick={goBack} />
       <img
         className="article-header"
-        src="https://image.tmdb.org/t/p/w500/kysDTCloxUPJ1BILI4f8gs74fcr.png"
+        src={`${imageBaseUrl}${article?.backdrop_path}`}
         alt=""
       />
       <h3>{article?.name ?? article?.title}</h3>
