@@ -7,7 +7,10 @@ import { useSelector } from "react-redux";
 interface ArticleInt {
   id: number;
   title: string;
+  images: any;
   name: string;
+  isMovie: boolean;
+  backdrop_path: any;
 }
 
 const Articles: React.FC = () => {
@@ -26,12 +29,12 @@ const Articles: React.FC = () => {
       };
 
       if (searchText) {
-        url = `https://api.themoviedb.org/3/search/${entityTypeUrl}`;
+        url = `https://api.themoviedb.org/3/search/${entityTypeUrl}?append_to_response=images`;
         params.query = searchText;
       } else if (articleType === "movies") {
-        url = "https://api.themoviedb.org/3/movie/top_rated";
+        url = "https://api.themoviedb.org/3/movie/top_rated?append_to_response=images";
       } else if (articleType === "tvShows") {
-        url = "https://api.themoviedb.org/3/tv/top_rated";
+        url = "https://api.themoviedb.org/3/tv/top_rated?append_to_response=images";
       }
 
       const options = {
@@ -47,6 +50,7 @@ const Articles: React.FC = () => {
         .request(options)
         .then((response) => {
           setArticles(response.data.results);
+          
         })
         .catch((err) => {
           console.log("Response: ", err);
@@ -58,9 +62,18 @@ const Articles: React.FC = () => {
 
   return (
     <div className="articles-wrapper">
-      {articles.map((article) => (
-        <Article key={article.id} title={article.title ?? article.name} />
-      ))}
+      {articles.map((article) => {
+        const isMovie = article.title ? true : false;
+        return (
+          <Article
+            key={article.id}
+            image={article.backdrop_path}
+            id={article.id}
+            title={article.title ?? article.name}
+            isMovie={isMovie}
+          />
+        );
+      })}
     </div>
   );
 };

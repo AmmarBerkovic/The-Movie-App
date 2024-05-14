@@ -1,0 +1,29 @@
+@import "./../../globals/variables.scss";
+@import "./../../globals/mixins.scss";
+
+.single-article {
+  @include default-flex-style;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  img.back-arrow {
+    cursor: pointer;
+    align-self: flex-start;
+    width: 50px;
+    height: 50px;
+    transition: all 0.4s;
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+  img.article-header {
+    object-fit: cover;
+    width: 100%;
+  }
+  h3 {
+    font-size: 32px;
+  }
+  p {
+    font-size: 24px;
+  }
+}

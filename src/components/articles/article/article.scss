@@ -6,6 +6,10 @@ article {
   background-color: $color-transparent-white;
   border: 3px solid #000000;
   border-radius: 15px;
+  transition: all 0.4s;
+  &:hover {
+    transform: scale(1.01);
+  }
   img {
     border-radius: 15px 15px 0 0;
     width: 100%;
