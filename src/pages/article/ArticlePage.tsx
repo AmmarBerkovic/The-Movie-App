@@ -10,7 +10,7 @@ const SingleArticlePage: React.FC = () => {
   const [article, setArticle] = useState<any>(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -23,7 +23,7 @@ const SingleArticlePage: React.FC = () => {
         page: "1",
         api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd", // Replace with your API key
       };
-      url = `https://api.themoviedb.org/3/${entityTypeUrl}/${id}?append_to_response=images`;
+      url = `https://api.themoviedb.org/3/${entityTypeUrl}/${id}`;
 
       const options = {
         method: "GET",

@@ -29,12 +29,12 @@ const Articles: React.FC = () => {
       };
 
       if (searchText) {
-        url = `https://api.themoviedb.org/3/search/${entityTypeUrl}?append_to_response=images`;
+        url = `https://api.themoviedb.org/3/search/${entityTypeUrl}`;
         params.query = searchText;
       } else if (articleType === "movies") {
-        url = "https://api.themoviedb.org/3/movie/top_rated?append_to_response=images";
+        url = "https://api.themoviedb.org/3/movie/top_rated";
       } else if (articleType === "tvShows") {
-        url = "https://api.themoviedb.org/3/tv/top_rated?append_to_response=images";
+        url = "https://api.themoviedb.org/3/tv/top_rated";
       }
 
       const options = {
