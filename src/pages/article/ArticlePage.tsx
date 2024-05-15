@@ -6,6 +6,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import backArrow from "./../../assets/images/arrow-left-solid.svg";
 import YoutubeVideo from "../../components/socials/youtube/YoutubeVideo";
 
+const { REACT_APP_THEMOVIEDB_API_URL } = process.env
+
 const SingleArticlePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<any>(null);
@@ -14,6 +16,7 @@ const SingleArticlePage: React.FC = () => {
   const imageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 
   useEffect(() => {
+    // fetchData();
     const fetchArticle = async () => {
       let url = "",
         entityTypeUrl = location.pathname.startsWith("/movies")
@@ -24,7 +27,7 @@ const SingleArticlePage: React.FC = () => {
         page: "1",
         api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd", // Replace with your API key
       };
-      url = `https://api.themoviedb.org/3/${entityTypeUrl}/${id}?append_to_response=videos`;
+      url = `${REACT_APP_THEMOVIEDB_API_URL}${entityTypeUrl}/${id}?append_to_response=videos`;
 
       const options = {
         method: "GET",
@@ -66,12 +69,6 @@ const SingleArticlePage: React.FC = () => {
           />
         </>
       )}
-      {/* <img
-        className="article-header"
-        src={`${imageBaseUrl}${article?.backdrop_path}`}
-        alt=""
-      />
-      <YoutubeVideo /> */}
       <h3>{article?.name ?? article?.title}</h3>
       <p>{article?.overview}</p>
     </div>

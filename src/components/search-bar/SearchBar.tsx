@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearchText } from "../../utils/store";
-import './search-bar.scss';
+import "./search-bar.scss";
 
 const SearchBar: React.FC = () => {
-  const [searchText, setSearchTextLocal] = useState("");
+  const [searchText, setSearchTextLocal] = useState(
+    useSelector((state: any) => state.searchText)
+  );
   const dispatch = useDispatch();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +15,7 @@ const SearchBar: React.FC = () => {
     if (newText.length > 2) {
       dispatch(setSearchText(newText)); // Dispatch action to update search text in Redux store
     } else {
-      dispatch(setSearchText(''))
+      dispatch(setSearchText(""));
     }
   };
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import Article from "./article/Article";
 import "./articles.scss";
 import { useSelector } from "react-redux";
+import { getTopRatedList } from "../../utils/services/moviedb.service";
 
 interface ArticleInt {
   id: number;
@@ -12,6 +13,9 @@ interface ArticleInt {
   isMovie: boolean;
   backdrop_path: any;
 }
+
+const { REACT_APP_THEMOVIEDB_API_URL, REACT_APP_THEMOVIEDB_API_KEY } =
+  process.env;
 
 const Articles: React.FC = () => {
   const [articles, setArticles] = useState<ArticleInt[]>([]);
@@ -29,12 +33,12 @@ const Articles: React.FC = () => {
       };
 
       if (searchText) {
-        url = `https://api.themoviedb.org/3/search/${entityTypeUrl}`;
+        url = `${REACT_APP_THEMOVIEDB_API_URL}search/${entityTypeUrl}`;
         params.query = searchText;
       } else if (articleType === "movies") {
-        url = "https://api.themoviedb.org/3/movie/top_rated";
+        url = `${REACT_APP_THEMOVIEDB_API_URL}movie/top_rated`;
       } else if (articleType === "tvShows") {
-        url = "https://api.themoviedb.org/3/tv/top_rated";
+        url = `${REACT_APP_THEMOVIEDB_API_URL}tv/top_rated`;
       }
 
       const options = {
@@ -50,7 +54,6 @@ const Articles: React.FC = () => {
         .request(options)
         .then((response) => {
           setArticles(response.data.results);
-          
         })
         .catch((err) => {
           console.log("Response: ", err);
