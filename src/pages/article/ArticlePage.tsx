@@ -4,6 +4,7 @@ import "./article-page.scss";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import backArrow from "./../../assets/images/arrow-left-solid.svg";
+import YoutubeVideo from "../../components/socials/youtube/YoutubeVideo";
 
 const SingleArticlePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,7 +24,7 @@ const SingleArticlePage: React.FC = () => {
         page: "1",
         api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd", // Replace with your API key
       };
-      url = `https://api.themoviedb.org/3/${entityTypeUrl}/${id}`;
+      url = `https://api.themoviedb.org/3/${entityTypeUrl}/${id}?append_to_response=videos`;
 
       const options = {
         method: "GET",
@@ -52,11 +53,25 @@ const SingleArticlePage: React.FC = () => {
   return (
     <div className="single-article">
       <img className="back-arrow" src={backArrow} alt="" onClick={goBack} />
-      <img
+      {article?.videos?.results[0]?.key ? (
+        <>
+          <YoutubeVideo videoId={article?.videos?.results[0]?.key} />
+        </>
+      ) : (
+        <>
+          <img
+            className="article-header"
+            src={`${imageBaseUrl}${article?.backdrop_path}`}
+            alt=""
+          />
+        </>
+      )}
+      {/* <img
         className="article-header"
         src={`${imageBaseUrl}${article?.backdrop_path}`}
         alt=""
       />
+      <YoutubeVideo /> */}
       <h3>{article?.name ?? article?.title}</h3>
       <p>{article?.overview}</p>
     </div>
