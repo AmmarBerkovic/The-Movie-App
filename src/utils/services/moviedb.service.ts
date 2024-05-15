@@ -12,8 +12,9 @@ const params = {
   api_key: REACT_APP_THEMOVIEDB_API_KEY,
 };
 
-const getTopRatedList = async (type: string): Promise<any> => {
+const getTopRatedList = async (type: string) => {
   const urlType = pruralToSingular(type);
+
   const options = {
     method: "GET",
     url: `${REACT_APP_THEMOVIEDB_API_URL}${urlType}/top_rated`,
@@ -22,7 +23,9 @@ const getTopRatedList = async (type: string): Promise<any> => {
       accept: "application/json",
     },
   };
-  return axiosRequest(options);
+  const response = await axiosRequest(options);
+
+  return response?.results;
 };
 
 const getSearchResults = async (type: string, searchText: string) => {
@@ -35,36 +38,32 @@ const getSearchResults = async (type: string, searchText: string) => {
       accept: "application/json",
     },
   };
-  return axiosRequest(options);
+  const response = await axiosRequest(options);
+  return response?.results;
 };
 
-const getDetailedViewData = async (id: number, type: string) => {
+const getDetailedViewData = async (id: any, type: string) => {
   const urlType = pruralToSingular(type);
   const options = {
     method: "GET",
-    url: `${REACT_APP_THEMOVIEDB_API_URL}${urlType}/top_rated`,
+    url: `${REACT_APP_THEMOVIEDB_API_URL}${urlType}/${id}?append_to_response=videos`,
     params,
     headers: {
       accept: "application/json",
     },
   };
-  return axiosRequest(options);
+  return await axiosRequest(options);
+};
+
+const axiosRequest = async (options: any) => {
+  const response: any = await axios
+    .request(options)
+    .catch((err) => console.error("Failed to fetch top rated: ", err.message));
+  return response.data;
+};
+
+const pruralToSingular = (type: string) => {
+  return type === "movies" ? "movie" : "tv";
 };
 
 export { getTopRatedList, getSearchResults, getDetailedViewData };
-
-//helper fucntions
-const axiosRequest = async (options: any) => {
-  const response = await axios
-    .request(options)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {
-      console.log("Response: ", err);
-    });
-};
-
-const pruralToSingular = async (type: string) => {
-  return type === "movies" ? "movie" : "tv";
-};

@@ -1,51 +1,22 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./article-page.scss";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-
+import { getDetailedViewData } from "../../utils/services/moviedb.service";
 import backArrow from "./../../assets/images/arrow-left-solid.svg";
 import YoutubeVideo from "../../components/socials/youtube/YoutubeVideo";
 
-const { REACT_APP_THEMOVIEDB_API_URL } = process.env
-
 const SingleArticlePage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [article, setArticle] = useState<any>(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w1280";
+  const navigate = useNavigate(),
+    location = useLocation(),
+    [article, setArticle] = useState<any>(null),
+    { id } = useParams<{ id: string }>();
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w1280",
+    type = location.pathname.startsWith("/movies") ? "movies" : "tw-shows";
 
   useEffect(() => {
-    // fetchData();
     const fetchArticle = async () => {
-      let url = "",
-        entityTypeUrl = location.pathname.startsWith("/movies")
-          ? "movie"
-          : "tv";
-      let params: any = {
-        language: "en-US",
-        page: "1",
-        api_key: "6d9ba6741c61eb171bd9cab12d1d1fcd", // Replace with your API key
-      };
-      url = `${REACT_APP_THEMOVIEDB_API_URL}${entityTypeUrl}/${id}?append_to_response=videos`;
-
-      const options = {
-        method: "GET",
-        url,
-        params,
-        headers: {
-          accept: "application/json",
-        },
-      };
-
-      const response = await axios
-        .request(options)
-        .then((response) => {
-          setArticle(response.data);
-        })
-        .catch((err) => {
-          console.log("Response: ", err);
-        });
+      const response = await getDetailedViewData(id, type);
+      setArticle(response);
     };
     fetchArticle();
   }, []);
