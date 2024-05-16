@@ -10,7 +10,7 @@ const SingleArticlePage: React.FC = () => {
     location = useLocation(),
     [article, setArticle] = useState<any>(null),
     { id } = useParams<{ id: string }>();
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w1280",
+  const imageBaseUrl = process.env.REACT_APP_THEMOVIEDB_IMAGES_URL,
     type = location.pathname.startsWith("/movies") ? "movies" : "tw-shows";
 
   useEffect(() => {
