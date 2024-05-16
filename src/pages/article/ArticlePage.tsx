@@ -26,7 +26,10 @@ const SingleArticlePage: React.FC = () => {
   };
   return (
     <div className="single-article">
-      <img className="back-arrow" src={backArrow} alt="" onClick={goBack} />
+      <div className="back-wrapper" onClick={goBack}>
+        <img className="back-arrow" src={backArrow} alt="Back arrow" />
+        <span>Back</span>
+      </div>
       {article?.videos?.results[0]?.key ? (
         <>
           <YoutubeVideo videoId={article?.videos?.results[0]?.key} />

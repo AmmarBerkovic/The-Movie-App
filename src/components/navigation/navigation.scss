@@ -16,7 +16,8 @@ nav {
       cursor: pointer;
     }
     li.active {
-      box-shadow: inset 0px 0px 25px #e62977;
+      box-shadow: inset 0px 0px 25px #e62977, 0 0 5px #e62977, 0 0 5px #e62977,
+        0 0 5px #e62977, 0 0 5px #e62977;
     }
     li:hover {
       transform: scale(1.05);
