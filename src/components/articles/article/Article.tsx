@@ -18,7 +18,7 @@ const Article: React.FC<ArticleProps> = ({ id, title, isMovie, image }) => {
           src={
             image
               ? `${imageBaseUrl}${image}`
-              : "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
+              : "https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-3.jpg"
           }
           alt={title}
         />

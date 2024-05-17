@@ -35,14 +35,6 @@ const SearchBar: React.FC = () => {
     };
   }, [typingTimeout]);
 
-  // useEffect(() => {
-  //   const delayDebounceFn = setTimeout(() => {
-  //     console.log(searchText);
-      
-  //   }, 1000)
-
-  //   return () => clearTimeout(delayDebounceFn)
-  // }, [searchText])
   return (
     <div className="search-wrapper">
       <input

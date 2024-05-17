@@ -25,7 +25,7 @@ const getTopRatedList = async (type: string) => {
   };
   const response = await axiosRequest(options);
 
-  return response?.results;
+  return response?.results.slice(0,10);
 };
 
 const getSearchResults = async (type: string, searchText: string) => {
