@@ -34,18 +34,24 @@ const Articles: React.FC = () => {
 
   return (
     <div className="articles-wrapper">
-      {articles.map((article) => {
-        const isMovie = article.title ? true : false;
-        return (
-          <Article
-            key={article.id}
-            image={article.backdrop_path}
-            id={article.id}
-            title={article.title ?? article.name}
-            isMovie={isMovie}
-          />
-        );
-      })}
+      {articles.length === 0 ? (
+        <h1>No results!</h1>
+      ) : (
+        <>
+          {articles.map((article) => {
+            const isMovie = article.title ? true : false;
+            return (
+              <Article
+                key={article.id}
+                image={article.backdrop_path}
+                id={article.id}
+                title={article.title ?? article.name}
+                isMovie={isMovie}
+              />
+            );
+          })}
+        </>
+      )}
     </div>
   );
 };

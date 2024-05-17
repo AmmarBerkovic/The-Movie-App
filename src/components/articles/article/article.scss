@@ -8,10 +8,13 @@ article {
   border: 3px solid #000000;
   border-radius: 15px;
   transition: all 0.4s;
+
   @include lower(sm) {
     width: auto;
   }
   &:hover {
+    box-shadow: inset 0px 0px 25px #e62977, 0 0 5px #e62977, 0 0 5px #e62977,
+      0 0 5px #e62977, 0 0 5px #e62977;
     transform: scale(1.01);
   }
   img {

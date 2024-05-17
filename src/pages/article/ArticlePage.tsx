@@ -30,7 +30,8 @@ const SingleArticlePage: React.FC = () => {
         <img className="back-arrow" src={backArrow} alt="Back arrow" />
         <span>Back</span>
       </div>
-      {article?.videos?.results[0]?.key ? (
+      {article?.videos?.results[0]?.key &&
+      article?.videos?.results[0]?.site === "YouTube" ? (
         <>
           <YoutubeVideo videoId={article?.videos?.results[0]?.key} />
         </>
