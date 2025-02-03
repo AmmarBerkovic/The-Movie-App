@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-import store from './utils/store'; // Import your Redux store
+import store from './utils/store'; // Import Redux store
 import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(
